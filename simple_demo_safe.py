@@ -26,44 +26,35 @@ from ams_db.core.base_agent_config import AgentConfig
 
 def create_wizard_config():
     """Create a mystical wizard agent configuration."""
-    config = BaseAgentConfig(
-        name="wizard_agent_001",
-        agent_type="wizard",
-        description="A mystical wizard specializing in code magic and algorithmic spells",
-        status="active"
-    )
+    config = AgentConfig("wizard_agent_001")
     
     # Wizard personality and style
-    config.add_prompt("personality", """
+    config.set_prompt("primeDirective", """
     You are a mystical wizard of code and algorithms, dwelling in the ethereal realms 
     where data flows like enchanted rivers and logic circuits sparkle like constellations.
-    Speak with wisdom, use metaphors from ancient magic, and approach problems with
-    both technical precision and mystical insight.
-    """)
-    
-    config.add_prompt("prime_directive", """
     Cast powerful spells of code, weave algorithms like ancient incantations,
     and guide seekers through the labyrinthine mysteries of software architecture.
     """)
     
-    # Research specializations
-    config.add_research_field("algorithmic_sorcery", "Advanced algorithms and data structures")
-    config.add_research_field("code_archaeology", "Legacy system analysis and modernization")
-    config.add_research_field("digital_alchemy", "Data transformation and processing")
+    config.set_prompt("llmSystem", """
+    You are a mystical wizard specializing in code magic and algorithmic spells.
+    Speak with wisdom, use metaphors from ancient magic, and approach problems with
+    both technical precision and mystical insight.
+    """)
     
     return config
 
 def create_minecraft_config():
     """Create a Minecraft-focused assistant configuration."""
-    config = BaseAgentConfig(
-        name="minecraft_assistant_001", 
-        agent_type="gaming_assistant",
-        description="Friendly Minecraft expert for building, crafting, and exploration guidance",
-        status="active"
-    )
+    config = AgentConfig("minecraft_assistant_001")
     
     # Gaming personality
-    config.add_prompt("personality", """
+    config.set_prompt("primeDirective", """
+    Help players master the art of Minecraft through creative building,
+    efficient resource management, and fun exploration strategies.
+    """)
+    
+    config.set_prompt("llmSystem", """
     Hey there, fellow crafter! I'm your friendly Minecraft assistant, here to help you
     build, explore, and create amazing things in the blocky world of Minecraft!
     I'm great at:
@@ -73,29 +64,19 @@ def create_minecraft_config():
     - Mod recommendations and troubleshooting
     """)
     
-    config.add_prompt("prime_directive", """
-    Help players master the art of Minecraft through creative building,
-    efficient resource management, and fun exploration strategies.
-    """)
-    
-    # Gaming research areas
-    config.add_research_field("building_techniques", "Advanced construction methods")
-    config.add_research_field("redstone_engineering", "Automation and contraption design")
-    config.add_research_field("world_generation", "Terrain analysis and exploration")
-    
     return config
 
 def create_expert_coder_config():
     """Create an expert software engineer configuration."""
-    config = BaseAgentConfig(
-        name="expert_coder_001",
-        agent_type="software_engineer", 
-        description="Senior software engineer specializing in AI/ML systems and architecture",
-        status="active"
-    )
+    config = AgentConfig("expert_coder_001")
     
     # Professional personality
-    config.add_prompt("personality", """
+    config.set_prompt("primeDirective", """
+    Deliver production-ready, scalable, and maintainable software solutions
+    while mentoring others in best practices and system design principles.
+    """)
+    
+    config.set_prompt("llmSystem", """
     You are an expert software engineer specializing in AI/ML systems, database architectures,
     and agentic alignment. You provide precise, well-reasoned technical solutions.
     Core Expertise:
@@ -104,16 +85,6 @@ def create_expert_coder_config():
     - Database optimization and scaling
     - Code quality and best practices
     """)
-    
-    config.add_prompt("prime_directive", """
-    Deliver production-ready, scalable, and maintainable software solutions
-    while mentoring others in best practices and system design principles.
-    """)
-    
-    # Technical research areas
-    config.add_research_field("ml_systems", "Machine learning infrastructure and deployment")
-    config.add_research_field("distributed_computing", "Scalable system architecture")
-    config.add_research_field("data_engineering", "ETL pipelines and data processing")
     
     return config
 
@@ -197,10 +168,12 @@ def main():
     ]
     
     for entry in knowledge_entries:
-        db_handler.add_knowledge_entry(
+        db_handler.add_knowledge_document(
+            "general",  # agent_id
             entry["title"],
             entry["content"], 
-            entry["category"],
+            "text",  # content_type
+            "",  # source
             entry["tags"]
         )
     
@@ -360,7 +333,10 @@ def main():
             agent_data = db_handler.get_agent_by_id(agent_id)
             if agent_data is not None and len(agent_data) > 0:
                 config_data = json.loads(agent_data["config"][0])
-                personality = config_data.get("prompts", {}).get("personality", "No personality defined")
+                # Try to get personality from llmSystem prompt or primeDirective
+                llm_system = config_data.get("prompt_config", {}).get("agent", {}).get("llmSystem", "")
+                prime_directive = config_data.get("prompt_config", {}).get("primeDirective", "")
+                personality = llm_system or prime_directive or "No personality defined"
                 
                 print(f"  {name} Style:")
                 # Show first 150 characters of personality
