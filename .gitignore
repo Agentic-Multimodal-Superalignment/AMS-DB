@@ -396,3 +396,4 @@ _site/
 *.tar.gz
 *.zip
 *.wheel
+data/sessions
