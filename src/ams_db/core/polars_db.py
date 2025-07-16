@@ -724,3 +724,50 @@ class PolarsDBHandler:
         except Exception as e:
             self.logger.error(f"Failed to generate multi-agent conversation: {e}")
             return ""
+    
+    def export_data(self, table_name: str, format: str = "csv", file_path: str = None) -> str:
+        """Export data from a table to various formats.
+        
+        Args:
+            table_name: Name of the table to export ('agents', 'conversations', 'knowledge', 'research', 'templates')
+            format: Export format ('csv', 'parquet', 'json', 'jsonl')
+            file_path: Optional custom file path
+            
+        Returns:
+            Path to the exported file
+        """
+        try:
+            # Get the appropriate table
+            table_map = {
+                'agents': self.agent_matrix,
+                'conversations': self.conversations,
+                'knowledge': self.knowledge_base,
+                'research': self.research_collection,
+                'templates': self.templates
+            }
+            
+            if table_name not in table_map:
+                raise ValueError(f"Unknown table: {table_name}. Available: {list(table_map.keys())}")
+            
+            table = table_map[table_name]
+            
+            # Generate file path if not provided
+            if file_path is None:
+                file_path = str(self.db_path / f"{table_name}.{format}")
+            
+            # Export based on format
+            if format == "csv":
+                table.write_csv(file_path)
+            elif format == "parquet":
+                table.write_parquet(file_path)
+            elif format in ["json", "jsonl"]:
+                table.write_ndjson(file_path)
+            else:
+                raise ValueError(f"Unsupported format: {format}")
+            
+            self.logger.info(f"Exported {table_name} to {file_path} ({format} format)")
+            return file_path
+            
+        except Exception as e:
+            self.logger.error(f"Failed to export {table_name}: {e}")
+            raise
