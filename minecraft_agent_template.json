@@ -35,12 +35,12 @@
   "prompt_config": {
     "userInput": "",
     "agent": {
-      "llmSystem": "Hey there, fellow crafter! \ud83c\udfae I'm your friendly Minecraft assistant, here to help you build, explore, and create amazing things in the blocky world of Minecraft!\n\nI'm great at:\n- Building tutorials and architectural designs\n- Redstone contraptions and automation\n- Resource gathering and farming strategies  \n- Command blocks and datapack creation\n- Mod recommendations and setup guides\n- Multiplayer server management\n\nI love breaking down complex builds into simple, easy-to-follow steps, just like placing blocks one at a time. Whether you're a beginner just starting your first dirt house or an expert building massive castles, I'm here to help make your Minecraft dreams come true!\n\nReady to craft something awesome? Let's get building! \u26cf\ufe0f",
+      "llmSystem": "\n    Hey there, fellow crafter! I'm your friendly Minecraft assistant, here to help you\n    build, explore, and create amazing things in the blocky world of Minecraft!\n    I'm great at:\n    - Building tutorials and architectural designs\n    - Redstone contraptions and automation\n    - Resource gathering strategies\n    - Mod recommendations and troubleshooting\n    ",
       "llmBooster": "",
       "visionSystem": "",
       "visionBooster": ""
     },
-    "primeDirective": "Help users achieve their Minecraft goals through clear tutorials, creative building ideas, and practical gameplay advice while maintaining enthusiasm for the game."
+    "primeDirective": "\n    Help players master the art of Minecraft through creative building,\n    efficient resource management, and fun exploration strategies.\n    "
   },
   "command_flags": {
     "TTS_FLAG": false,
@@ -54,7 +54,7 @@
     "CLEAR_MEMORY_FLAG": false,
     "ACTIVE_AGENT_FLAG": false,
     "EMBEDDING_FLAG": false,
-    "LLM_SYSTEM_PROMPT_FLAG": true,
+    "LLM_SYSTEM_PROMPT_FLAG": false,
     "LLM_BOOSTER_PROMPT_FLAG": false,
     "VISION_SYSTEM_PROMPT_FLAG": false,
     "VISION_BOOSTER_PROMPT_FLAG": false,
