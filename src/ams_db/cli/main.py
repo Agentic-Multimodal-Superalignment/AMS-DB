@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Optional
 
 from ..core import AgentConfig, PolarsDBHandler, GraphitiRAGFramework
-from src.ams_db.core.conversation_generator import ConversationGenerator
+from ..core.conversation_generator import ConversationGenerator
 
 
 @click.group()
@@ -280,7 +280,7 @@ def generate(agents: str, topic: str, turns: int, output: str):
     db_handler = PolarsDBHandler()
     
     try:
-        from src.ams_db.core.graphiti_pipe import GraphitiRAGFramework
+        from ..core.graphiti_pipe import GraphitiRAGFramework
         graphiti_framework = GraphitiRAGFramework(db_handler)
         generator = ConversationGenerator(db_handler, graphiti_framework)
         
@@ -321,7 +321,7 @@ def export(conversation_id: str, output_path: str, export_format: str, include_m
     
     try:
         if export_format == 'jsonl':
-            from src.ams_db.core.graphiti_pipe import GraphitiRAGFramework
+            from ..core.graphiti_pipe import GraphitiRAGFramework
             graphiti_framework = GraphitiRAGFramework(db_handler)
             generator = ConversationGenerator(db_handler, graphiti_framework)
             
@@ -363,7 +363,7 @@ def dataset(topics_file: str, topics: str, agents: str, turns: int, output: str)
         
         agent_list = [agent.strip() for agent in agents.split(',')]
         
-        from src.ams_db.core.graphiti_pipe import GraphitiRAGFramework
+        from ..core.graphiti_pipe import GraphitiRAGFramework
         graphiti_framework = GraphitiRAGFramework(db_handler)
         generator = ConversationGenerator(db_handler, graphiti_framework)
         

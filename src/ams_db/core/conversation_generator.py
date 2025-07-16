@@ -9,9 +9,9 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional
 from pathlib import Path
 
-from src.ams_db.core.polars_db import PolarsDBHandler
-from src.ams_db.core.graphiti_pipe import GraphitiRAGFramework
-from src.ams_db.core.base_agent_config import AgentConfig
+from .polars_db import PolarsDBHandler
+from .graphiti_pipe import GraphitiRAGFramework
+from .base_agent_config import AgentConfig
 
 class ConversationGenerator:
     """
