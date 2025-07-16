@@ -1,0 +1,43 @@
+Metadata-Version: 2.4
+Name: ams-db
+Version: 0.1.0
+Summary: AMS Database: Agentic Multimodal Super-alignment ecosystem database foundation
+Author-email: AMS Team <team@ams.ai>
+License: MIT
+Project-URL: homepage, https://github.com/ams-team/ams-db
+Project-URL: repository, https://github.com/ams-team/ams-db
+Project-URL: documentation, https://ams-db.readthedocs.io
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: polars>=0.20.0
+Requires-Dist: graphiti-core>=0.3.0
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: click>=8.0.0
+Requires-Dist: fastapi>=0.100.0
+Requires-Dist: uvicorn>=0.20.0
+Requires-Dist: python-multipart>=0.0.6
+Requires-Dist: aiofiles>=23.0.0
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: rich>=13.0.0
+Requires-Dist: typer>=0.9.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.21.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: isort>=5.12.0; extra == "dev"
+Requires-Dist: flake8>=6.0.0; extra == "dev"
+Requires-Dist: mypy>=1.5.0; extra == "dev"
+Requires-Dist: pre-commit>=3.0.0; extra == "dev"
+
+# AMS Database
+
+The AMS: Agentic Multimodal Super-alignment ecosystem uses the AMS-DB as its core foundation for storage of knowledge bases, and instancing databases for multimodal agent projects. We have a custom agent context configuration system which allows full control over the agent prompt set, attached models for multimodality, and knowledge bases for expertise in those topics. Export your agent configs, conversation histories, and knowledge bases to easily share them with others.

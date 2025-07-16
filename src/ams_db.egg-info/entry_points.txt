@@ -1,0 +1,2 @@
+[console_scripts]
+ams-db = ams_db.cli.main:app

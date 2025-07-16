@@ -1,0 +1,111 @@
+{
+  "agent_id": "wizard_agent_001",
+  "model_config": {
+    "largeLanguageModel": {
+      "names": [],
+      "instances": [],
+      "model_config_template": {}
+    },
+    "embeddingModel": {
+      "names": [],
+      "instances": [],
+      "model_config_template": {}
+    },
+    "largeLanguageAndVisionAssistant": {
+      "names": [],
+      "instances": [],
+      "model_config_template": {}
+    },
+    "yoloVision": {
+      "names": [],
+      "instances": [],
+      "model_config_template": {}
+    },
+    "speechRecognitionSTT": {
+      "names": [],
+      "instances": [],
+      "model_config_template": {}
+    },
+    "voiceGenerationTTS": {
+      "names": [],
+      "instances": [],
+      "model_config_template": {}
+    }
+  },
+  "prompt_config": {
+    "userInput": "",
+    "agent": {
+      "llmSystem": "\ud83e\uddd9\u200d\u2642\ufe0f Greetings, seeker of knowledge! I am a mystical wizard of code and algorithms, dwelling in the ethereal realms where data flows like enchanted rivers and logic circuits sparkle like constellation patterns.\n\nMy magical abilities include:\n- Weaving spells of elegant code architecture \n- Transmuting complex problems into crystalline solutions\n- Divining optimal algorithms through arcane computational arts\n- Channeling the cosmic forces of creativity and innovation\n\nI speak in metaphors of magic and mystery, viewing each coding challenge as an adventure through mystical digital realms. Let us embark on this enchanted journey of discovery together! \u2728",
+      "llmBooster": "",
+      "visionSystem": "",
+      "visionBooster": ""
+    },
+    "primeDirective": "Guide users through the mystical arts of programming with wisdom, creativity, and magical metaphors while ensuring technical accuracy and practical solutions."
+  },
+  "command_flags": {
+    "TTS_FLAG": false,
+    "STT_FLAG": false,
+    "CHUNK_AUDIO_FLAG": false,
+    "AUTO_SPEECH_FLAG": false,
+    "LLAVA_FLAG": false,
+    "SCREEN_SHOT_FLAG": false,
+    "SPLICE_VIDEO_FLAG": false,
+    "AUTO_COMMANDS_FLAG": false,
+    "CLEAR_MEMORY_FLAG": false,
+    "ACTIVE_AGENT_FLAG": false,
+    "EMBEDDING_FLAG": false,
+    "LLM_SYSTEM_PROMPT_FLAG": true,
+    "LLM_BOOSTER_PROMPT_FLAG": false,
+    "VISION_SYSTEM_PROMPT_FLAG": false,
+    "VISION_BOOSTER_PROMPT_FLAG": false,
+    "LATEX_FLAG": false,
+    "CMD_RUN_FLAG": false,
+    "AGENT_FLAG": true,
+    "MEMORY_CLEAR_FLAG": false
+  },
+  "databases": {
+    "agent_matrix": "",
+    "conversation_history": "",
+    "knowledge_base": "",
+    "research_collection": "",
+    "template_files": ""
+  },
+  "database_config": {
+    "conversation_modes": {
+      "current_session_only": false,
+      "use_past_conversations": true,
+      "max_history_turns": 100
+    },
+    "knowledge_base_categories": [
+      "general",
+      "technical",
+      "domain_specific"
+    ],
+    "research_collection_fields": {
+      "mathematics": {
+        "enabled": true,
+        "priority": "high"
+      },
+      "physics": {
+        "enabled": true,
+        "priority": "medium"
+      },
+      "software_development": {
+        "enabled": true,
+        "priority": "high"
+      },
+      "ai_ml": {
+        "enabled": true,
+        "priority": "high"
+      },
+      "database_systems": {
+        "enabled": true,
+        "priority": "medium"
+      },
+      "agentic_alignment": {
+        "enabled": true,
+        "priority": "high"
+      }
+    }
+  }
+}

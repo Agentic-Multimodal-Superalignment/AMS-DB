@@ -1,0 +1,111 @@
+{
+  "agent_id": "expert_coder_001",
+  "model_config": {
+    "largeLanguageModel": {
+      "names": [],
+      "instances": [],
+      "model_config_template": {}
+    },
+    "embeddingModel": {
+      "names": [],
+      "instances": [],
+      "model_config_template": {}
+    },
+    "largeLanguageAndVisionAssistant": {
+      "names": [],
+      "instances": [],
+      "model_config_template": {}
+    },
+    "yoloVision": {
+      "names": [],
+      "instances": [],
+      "model_config_template": {}
+    },
+    "speechRecognitionSTT": {
+      "names": [],
+      "instances": [],
+      "model_config_template": {}
+    },
+    "voiceGenerationTTS": {
+      "names": [],
+      "instances": [],
+      "model_config_template": {}
+    }
+  },
+  "prompt_config": {
+    "userInput": "",
+    "agent": {
+      "llmSystem": "You are an expert software engineer specializing in AI/ML systems, database architectures, and agentic alignment. You provide precise, well-reasoned technical solutions.\n\nCore Expertise:\n- Machine Learning: Deep learning, transformers, reinforcement learning, model optimization\n- Database Systems: SQL/NoSQL design, distributed systems, data pipelines, query optimization\n- Agentic Alignment: Multi-agent coordination, safety protocols, reward modeling, value alignment\n- Software Engineering: Clean architecture, testing, performance optimization, system design\n\nGuidelines:\n- Provide concrete, implementable solutions\n- Include performance considerations and trade-offs\n- Suggest best practices and industry standards\n- Focus on robust, scalable implementations\n- Explain complex concepts clearly and precisely\n- Always consider safety and alignment implications in AI systems",
+      "llmBooster": "",
+      "visionSystem": "",
+      "visionBooster": ""
+    },
+    "primeDirective": "Deliver exceptional technical solutions in AI/ML, database systems, and agentic alignment while maintaining the highest standards of code quality, system reliability, and safety."
+  },
+  "command_flags": {
+    "TTS_FLAG": false,
+    "STT_FLAG": false,
+    "CHUNK_AUDIO_FLAG": false,
+    "AUTO_SPEECH_FLAG": false,
+    "LLAVA_FLAG": false,
+    "SCREEN_SHOT_FLAG": false,
+    "SPLICE_VIDEO_FLAG": false,
+    "AUTO_COMMANDS_FLAG": false,
+    "CLEAR_MEMORY_FLAG": false,
+    "ACTIVE_AGENT_FLAG": false,
+    "EMBEDDING_FLAG": true,
+    "LLM_SYSTEM_PROMPT_FLAG": true,
+    "LLM_BOOSTER_PROMPT_FLAG": false,
+    "VISION_SYSTEM_PROMPT_FLAG": false,
+    "VISION_BOOSTER_PROMPT_FLAG": false,
+    "LATEX_FLAG": false,
+    "CMD_RUN_FLAG": false,
+    "AGENT_FLAG": true,
+    "MEMORY_CLEAR_FLAG": false
+  },
+  "databases": {
+    "agent_matrix": "",
+    "conversation_history": "",
+    "knowledge_base": "",
+    "research_collection": "",
+    "template_files": ""
+  },
+  "database_config": {
+    "conversation_modes": {
+      "current_session_only": false,
+      "use_past_conversations": true,
+      "max_history_turns": 100
+    },
+    "knowledge_base_categories": [
+      "general",
+      "technical",
+      "domain_specific"
+    ],
+    "research_collection_fields": {
+      "mathematics": {
+        "enabled": true,
+        "priority": "high"
+      },
+      "physics": {
+        "enabled": true,
+        "priority": "medium"
+      },
+      "software_development": {
+        "enabled": true,
+        "priority": "high"
+      },
+      "ai_ml": {
+        "enabled": true,
+        "priority": "high"
+      },
+      "database_systems": {
+        "enabled": true,
+        "priority": "medium"
+      },
+      "agentic_alignment": {
+        "enabled": true,
+        "priority": "high"
+      }
+    }
+  }
+}
