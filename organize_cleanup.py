@@ -1,0 +1,177 @@
+#!/usr/bin/env python3
+"""
+AMS-DB Organization Tool
+Cleans up the messy file structure and provides proper organization.
+"""
+
+import shutil
+import json
+from pathlib import Path
+from datetime import datetime
+import polars as pl
+
+def cleanup_and_organize():
+    """Clean up the messy file structure and organize properly."""
+    
+    print("🧹 Starting AMS-DB Organization Cleanup...")
+    
+    # Create organized directory structure
+    base_dir = Path(".")
+    
+    # Create organized directories
+    directories = {
+        "data": base_dir / "data",
+        "exports": base_dir / "data" / "exports",
+        "backups": base_dir / "data" / "backups", 
+        "conversations": base_dir / "data" / "conversations",
+        "agents": base_dir / "data" / "agents",
+        "sessions": base_dir / "data" / "sessions"
+    }
+    
+    for name, path in directories.items():
+        path.mkdir(parents=True, exist_ok=True)
+        print(f"📁 Created directory: {path}")
+    
+    # Move scattered files to organized locations
+    print("\n📦 Organizing scattered files...")
+    
+    # Move agent backups
+    backup_dirs = [
+        "my_agent_backup",
+        "my_backup_folder", 
+        "my_wizard_backup",
+        "my_wizard_backup2"
+    ]
+    
+    for backup_dir in backup_dirs:
+        backup_path = base_dir / backup_dir
+        if backup_path.exists():
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            new_name = f"{backup_dir}_{timestamp}"
+            destination = directories["backups"] / new_name
+            shutil.move(str(backup_path), str(destination))
+            print(f"📦 Moved {backup_dir} -> {destination}")
+    
+    # Move template files to agents directory
+    template_files = [
+        "wizard_agent_template.json",
+        "minecraft_agent_template.json", 
+        "expert_coder_agent_template.json"
+    ]
+    
+    for template_file in template_files:
+        template_path = base_dir / template_file
+        if template_path.exists():
+            destination = directories["agents"] / template_file
+            shutil.move(str(template_path), str(destination))
+            print(f"📋 Moved {template_file} -> {destination}")
+    
+    # Move conversation files
+    conversation_files = [
+        "epic_conversation.jsonl"
+    ]
+    
+    for conv_file in conversation_files:
+        conv_path = base_dir / conv_file
+        if conv_path.exists():
+            destination = directories["conversations"] / conv_file
+            shutil.move(str(conv_path), str(destination))
+            print(f"💬 Moved {conv_file} -> {destination}")
+    
+    # Consolidate database directories
+    print("\n🗄️ Consolidating databases...")
+    
+    db_dirs = [
+        "example_database",
+        "example_graphiti_db", 
+        "test_db",
+        "test_jsonl_db",
+        "test_multiagent_db",
+        "debug_test_db"
+    ]
+    
+    # Keep agent_database as the main one, archive others
+    main_db = base_dir / "agent_database"
+    archive_db_dir = directories["backups"] / "archived_databases"
+    archive_db_dir.mkdir(exist_ok=True)
+    
+    for db_dir in db_dirs:
+        db_path = base_dir / db_dir
+        if db_path.exists():
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            destination = archive_db_dir / f"{db_dir}_{timestamp}"
+            shutil.move(str(db_path), str(destination))
+            print(f"🗄️ Archived {db_dir} -> {destination}")
+    
+    # Create a .gitignore for data directory
+    gitignore_content = """# AMS-DB Data Directory
+# This directory contains runtime data, exports, and backups
+# Add specific patterns below if you want to exclude certain files
+
+# Temporary files
+*.tmp
+*.temp
+
+# Large export files (optional - remove if you want to track them)
+# *.parquet
+# *.jsonl
+
+# Personal conversation data (optional - remove if you want to track them)  
+# conversations/
+# sessions/
+"""
+    
+    (directories["data"] / ".gitignore").write_text(gitignore_content)
+    print(f"📝 Created data/.gitignore")
+    
+    # Create a README for the data directory
+    readme_content = """# AMS-DB Data Directory
+
+This directory contains organized AMS-DB runtime data:
+
+## Structure
+
+- **agents/**: Agent configuration templates and exports
+- **backups/**: Agent backups and archived databases  
+- **conversations/**: Saved conversation files
+- **exports/**: Database exports in various formats
+- **sessions/**: Active conversation session data
+
+## Database
+
+The main database is stored in the parent directory as `agent_database/`.
+
+## Usage
+
+Use the AMS-DB CLI to manage data:
+
+```bash
+# Chat with agents
+ams-db chat start wizard_agent_001
+ams-db chat list
+
+# Export data  
+ams-db agent export wizard_agent_001 data/agents/
+ams-db export table conversations --format jsonl
+
+# View database stats
+ams-db db stats
+```
+
+Generated by AMS-DB Organization Tool
+"""
+    
+    (directories["data"] / "README.md").write_text(readme_content)
+    print(f"📄 Created data/README.md")
+    
+    print("\n✅ Organization complete!")
+    print("\n📋 Summary:")
+    print(f"  📁 Main database: agent_database/")
+    print(f"  📦 Organized data: data/")
+    print(f"  🗄️ Archived databases: data/backups/archived_databases/") 
+    print(f"  👤 Agent templates: data/agents/")
+    print(f"  💬 Conversations: data/conversations/")
+    print("\n🎉 Your AMS-DB is now organized!")
+
+if __name__ == "__main__":
+    cleanup_and_organize()

@@ -1,5 +1,11 @@
 # envCreation Cheat Sheet
 
+## Install UV
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
 ## Create env
 
 ```bash

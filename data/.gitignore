@@ -1,0 +1,15 @@
+# AMS-DB Data Directory
+# This directory contains runtime data, exports, and backups
+# Add specific patterns below if you want to exclude certain files
+
+# Temporary files
+*.tmp
+*.temp
+
+# Large export files (optional - remove if you want to track them)
+# *.parquet
+# *.jsonl
+
+# Personal conversation data (optional - remove if you want to track them)  
+# conversations/
+# sessions/

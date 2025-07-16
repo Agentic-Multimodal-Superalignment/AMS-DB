@@ -5,9 +5,11 @@ Integrates with Graphiti and Ollama for conversation generation and export.
 
 import json
 import uuid
+import logging
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 from pathlib import Path
+import polars as pl
 
 from .polars_db import PolarsDBHandler
 from .graphiti_pipe import GraphitiRAGFramework
@@ -28,6 +30,7 @@ class ConversationGenerator:
         """
         self.db = db_handler
         self.graphiti = graphiti_framework
+        self.logger = logging.getLogger(__name__)
         
     def generate_conversation(self, 
                             agents: List[str], 
@@ -66,20 +69,24 @@ class ConversationGenerator:
         # Get agent configurations
         agent_configs = {}
         for agent_id in agents:
-            agent_data = self.db.get_agent(agent_id)
-            if agent_data:
-                agent_configs[agent_id] = json.loads(agent_data["config_json"])
+            config = self.db.get_agent_config(agent_id)
+            if config:
+                agent_configs[agent_id] = config
         
         # Generate conversation turns
         for turn in range(num_turns):
             current_agent = agents[turn % len(agents)]
             
             # Get relevant context from knowledge base
-            knowledge_context = self.graphiti.search_knowledge(
-                agent_id=current_agent,
-                query=topic,
-                limit=3
-            )
+            knowledge_context = []
+            try:
+                # Search knowledge base directly through DB handler
+                knowledge_df = self.db.search_knowledge_base(current_agent, topic)
+                if knowledge_df.height > 0:
+                    knowledge_context = knowledge_df.head(3).to_dicts()
+            except Exception as e:
+                self.logger.warning(f"Failed to get knowledge context: {e}")
+                knowledge_context = []
             
             # Simulate conversation turn (in real implementation, this would call Ollama)
             turn_data = self._generate_turn(
@@ -185,16 +192,13 @@ class ConversationGenerator:
     
     def _store_conversation_turn(self, conversation_id: str, turn_data: Dict[str, Any]):
         """Store a conversation turn in the database."""
-        conversation_entry = {
-            "conversation_id": conversation_id,
-            "turn_number": turn_data["turn_number"],
-            "agent_id": turn_data["agent_id"],
-            "message": turn_data["content"],
-            "timestamp": turn_data["timestamp"],
-            "metadata": json.dumps(turn_data["metadata"])
-        }
-        
-        self.db.add_conversation_entry(conversation_entry)
+        self.db.add_conversation_message(
+            agent_id=turn_data["agent_id"],
+            role="assistant",  # Since this is the agent's response
+            content=turn_data["content"],
+            session_id=conversation_id,
+            metadata=turn_data["metadata"]
+        )
     
     def export_conversation_jsonl(self, 
                                  conversation_id: str, 
@@ -204,29 +208,32 @@ class ConversationGenerator:
         Export a conversation to JSONL format.
         
         Args:
-            conversation_id: ID of conversation to export
+            conversation_id: ID of conversation to export (session_id)
             output_path: Path to save JSONL file
             include_metadata: Whether to include metadata in export
             
         Returns:
             Path to exported file
         """
-        # Get conversation data from database
-        conversation_df = self.db.get_conversation_history(conversation_id)
+        # Get conversation data from database by session_id
+        conversation_df = self.db.conversations.filter(
+            pl.col("session_id") == conversation_id
+        ).sort("timestamp")
         
-        if conversation_df.is_empty():
+        if conversation_df.height == 0:
             raise ValueError(f"No conversation found with ID: {conversation_id}")
         
         # Convert to JSONL format
         jsonl_lines = []
         
-        for row in conversation_df.iter_rows(named=True):
+        for row in conversation_df.to_dicts():
             entry = {
                 "conversation_id": row["conversation_id"],
-                "turn_number": row["turn_number"],
                 "agent_id": row["agent_id"],
-                "message": row["message"],
-                "timestamp": row["timestamp"]
+                "role": row["role"],
+                "content": row["content"],
+                "session_id": row["session_id"],
+                "timestamp": str(row["timestamp"])
             }
             
             if include_metadata and row["metadata"]:

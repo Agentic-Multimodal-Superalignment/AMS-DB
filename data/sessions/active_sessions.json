@@ -1,0 +1,30 @@
+{
+  "wiz1": {
+    "id": "b9f74679-60b4-43f4-9d07-44224c1994ce",
+    "alias": "wiz1",
+    "name": "test_with_wizard",
+    "mode": "HUMAN_CHAT",
+    "participants": [
+      "human",
+      "wizard_agent_001"
+    ],
+    "topic": "Understanding AI systems",
+    "created_at": "2025-07-16T02:21:40.061109",
+    "message_count": 8,
+    "last_activity": "2025-07-16T03:05:48.268304"
+  },
+  "wiz2": {
+    "id": "79ed0e9e-0cc1-4fec-9fe8-fd4e3f5ca991",
+    "alias": "wiz2",
+    "name": "test_new_system",
+    "mode": "HUMAN_CHAT",
+    "participants": [
+      "human",
+      "wizard_agent_001"
+    ],
+    "topic": "General conversation",
+    "created_at": "2025-07-16T02:26:14.097209",
+    "message_count": 0,
+    "last_activity": null
+  }
+}

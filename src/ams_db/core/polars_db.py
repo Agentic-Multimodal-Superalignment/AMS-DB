@@ -474,6 +474,35 @@ class PolarsDBHandler:
             ) / (1024 * 1024)
         }
     
+    def get_agent_stats(self) -> Dict[str, Any]:
+        """Get agent-specific statistics."""
+        return {
+            "total_agents": self.agent_matrix.height,
+            "active_agents": self.agent_matrix.filter(pl.col("is_active") == True).height,
+            "inactive_agents": self.agent_matrix.filter(pl.col("is_active") == False).height
+        }
+    
+    def get_conversation_stats(self) -> Dict[str, Any]:
+        """Get conversation statistics."""
+        return {
+            "total_messages": self.conversations.height,
+            "unique_sessions": self.conversations.select("session_id").n_unique(),
+            "unique_conversations": self.conversations.select("conversation_id").n_unique()
+        }
+    
+    def get_knowledge_stats(self) -> Dict[str, Any]:
+        """Get knowledge base statistics."""
+        return {
+            "total_entries": self.knowledge_base.height,
+            "embedded_entries": self.knowledge_base.filter(pl.col("embedding_status") == "completed").height,
+            "pending_entries": self.knowledge_base.filter(pl.col("embedding_status") == "pending").height
+        }
+    
+    def get_agent_by_id(self, agent_id: str) -> Optional[pl.DataFrame]:
+        """Get agent data by ID."""
+        result = self.agent_matrix.filter(pl.col("agent_id") == agent_id)
+        return result if result.height > 0 else None
+    
     # New Methods for JSONL Export and Conversation Generation
     def export_conversations_jsonl(self, agent_id: str, output_path: str) -> bool:
         """
@@ -516,7 +545,7 @@ class PolarsDBHandler:
                             ],
                             "session_id": session_id,
                             "agent_id": agent_id,
-                            "timestamp": row["timestamp"]
+                            "timestamp": str(row["timestamp"])  # Convert datetime to string
                         })
                         user_msg = None
             

@@ -18,16 +18,19 @@ The AMS: Agentic Multimodal Super-alignment ecosystem uses AMS-DB as its core fo
 
 **Key Features:**
 - 🤖 **Agent Configuration Management** - Complete control over agent prompts, modalities, and behaviors
-- 🗄️ **High-Performance Database** - Polars-based data management for conversations, knowledge, and research
+- � **Multiple Conversation Modes** - Human-to-agent, agent-to-agent, and roleplay modes
+- �🗄️ **High-Performance Database** - Polars-based data management with organized file structure
 - 🧠 **Knowledge Graph Integration** - Graphiti-powered temporal knowledge graphs for contextual memory
 - 📡 **REST API & CLI** - Multiple interfaces for integration and management
 - 🔄 **Export/Import System** - Share agent configs, conversation histories, and knowledge bases
 - 📝 **Predefined Templates** - Ready-to-use agent configurations for common use cases
 - 🎭 **Three Personality Archetypes** - Wizard, Minecraft Assistant, and Expert Coder templates
+- 📁 **Organized Data Structure** - Clean separation of agents, conversations, exports, and backups
 
 ## 🚀 Quick Start
 
 ### ⚡ **[ULTIMATE CHEATSHEET](docs/ULTIMATE_CHEATSHEET.md)** - Skip to the magic! 🧙‍♂️✨
+### 📖 **[QUICK START GUIDE](docs/QUICK_START.md)** - Get running in 5 minutes!
 
 ### Installation
 
