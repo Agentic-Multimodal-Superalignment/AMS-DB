@@ -293,7 +293,12 @@ class ChatManager:
         """
         try:
             # Initialize Graphiti framework for this agent
-            graphiti = GraphitiRAGFramework()
+            import os
+            graphiti = GraphitiRAGFramework(
+                neo4j_uri=os.environ.get('NEO4J_URI', 'bolt://localhost:7687'),
+                neo4j_user=os.environ.get('NEO4J_USER', 'neo4j'),
+                neo4j_password=os.environ.get('NEO4J_PASSWORD', 'password')
+            )
             
             # Load the agent's context and knowledge
             await graphiti.load_agent(agent_id)

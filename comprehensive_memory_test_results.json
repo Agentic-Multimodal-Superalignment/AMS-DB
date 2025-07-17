@@ -1,0 +1,46 @@
+{
+  "total_tests": 6,
+  "passed": 3,
+  "failed": 3,
+  "partial": 0,
+  "skipped": 0,
+  "success_rate": 50.0,
+  "detailed_results": [
+    {
+      "test": "Conversation History Storage",
+      "status": "PASS",
+      "details": "Stored 8 messages, built 604 char context, found 4 'blue' mentions",
+      "timestamp": "2025-07-17T04:16:28.952979"
+    },
+    {
+      "test": "Specialized Knowledge Bases",
+      "status": "FAIL",
+      "details": "Search working: False, Isolation: True",
+      "timestamp": "2025-07-17T04:16:29.075025"
+    },
+    {
+      "test": "Template Storage System",
+      "status": "PASS",
+      "details": "Added 5 templates (prompt: 2, config: 2, workflow: 1)",
+      "timestamp": "2025-07-17T04:16:29.173755"
+    },
+    {
+      "test": "Research Collection Storage",
+      "status": "FAIL",
+      "details": "Search working: False, Filtering: True",
+      "timestamp": "2025-07-17T04:16:29.245370"
+    },
+    {
+      "test": "Graphiti Context Memory",
+      "status": "FAIL",
+      "details": "Failed to load agent into Graphiti",
+      "timestamp": "2025-07-17T04:16:34.881026"
+    },
+    {
+      "test": "Cross-System Integration",
+      "status": "PASS",
+      "details": "All systems integrated: 24 total records, agent isolation working, templates globally accessible",
+      "timestamp": "2025-07-17T04:16:34.885024"
+    }
+  ]
+}
